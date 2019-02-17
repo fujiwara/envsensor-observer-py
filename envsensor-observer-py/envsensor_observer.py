@@ -26,6 +26,7 @@ import sensor_beacon as envsensor
 import conf
 import ble
 
+
 if conf.CSV_OUTPUT:
     import logging
     import csv_logger
@@ -34,6 +35,9 @@ if conf.FLUENTD_FORWARD:
     from fluent import event
 if conf.INFLUXDB_OUTPUT:
     from influxdb import InfluxDBClient
+if conf.NAFUDA_OUTPUT:
+    sys.path.append('/home/pi/electronic_badge_2018/lib')
+    from nafuda import Nafuda
 
 # constant
 VER = 1.0
@@ -144,7 +148,12 @@ def handling_data(sensor):
         sensor.forward_fluentd(event)
     if conf.CSV_OUTPUT:
         log.info(sensor.csv_format())
+    if conf.NAFUDA_OUTPUT:
+        show_nafuda(sensor.txt_format())
 
+def show_nafuda(txt):
+    nafuda = Nafuda()
+    nafuda.draw_text(txt, font_path=conf.NAFUDA_FONT_PATH, font_pt=conf.NAFUDA_FONT_SIZE, orientation=90)
 
 # check timeout sensor and update flag
 def eval_sensor_state():

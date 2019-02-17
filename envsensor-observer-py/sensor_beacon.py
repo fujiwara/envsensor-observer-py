@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+# -*- coding: utf-8 -*-
 import math
 import conf
 import datetime
@@ -236,6 +235,19 @@ class SensorBeacon:
         print "\ttick_register = ", self.tick_register
         print "\ttick_last_update = ", self.tick_last_update
         print "\tflag_active = ", self.flag_active
+
+    def txt_format(self):
+        return u'{updated}\n気温: {temp}℃\n湿度: {humi}%\n照度: {light}lx\nUV:   {uv}\n気圧: {pressure}hPa\n騒音: {noise}dB\n不快指数: {di}\n熱中症危険度: {heat}\nバッテリー: {bat}mV'.format(
+                updated=self.tick_last_update,
+                temp=self.val_temp,
+                humi=self.val_humi,
+                light=self.val_light,
+                uv=self.val_uv,
+                pressure=self.val_pressure,
+                noise=self.val_noise,
+                di=self.val_di,
+                heat=self.val_heat,
+                bat=self.val_battery)
 
     def csv_format(self):
         str_data = str(self.tick_last_update) + "," + \

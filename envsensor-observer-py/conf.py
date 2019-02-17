@@ -43,3 +43,8 @@ INFLUXDB_DATABASE = "xxxxxxxx"  # enter influxDB database name
 INFLUXDB_MEASUREMENT = "xxxxxxxx"  # enter measurement name
 INFLUXDB_USER = "root"  # enter influxDB username
 INFLUXDB_PASSWORD = "root"  # enter influxDB user password
+
+
+NAFUDA_OUTPUT = True
+NAFUDA_FONT_PATH = '/usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf'
+NAFUDA_FONT_SIZE = 24
