@@ -39,7 +39,7 @@ if conf.NAFUDA_OUTPUT:
     sys.path.append('/home/pi/electronic_badge_2018/lib')
     from nafuda import Nafuda
 if conf.MACKEREL_OUTPUT:
-    from mackerel.client import MackerelClient
+    from mackerel.client import Client as MackerelClient
 
 # constant
 VER = 1.2
