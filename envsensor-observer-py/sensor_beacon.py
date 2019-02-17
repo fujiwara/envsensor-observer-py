@@ -248,6 +248,28 @@ class SensorBeacon:
             'distance': self.distance
         })
 
+    def post_mackerel(self, client, service_name, env_name):
+        now = int(self.tick_last_update.strftime('%s'))
+        src = {
+            "temperature": self.val_temp,
+            "humidity": self.val_humi,
+            "light": self.val_light,
+            "uv": self.val_uv,
+            "pressure": self.val_pressure,
+            "noise": self.val_noise,
+            "di": self.val_di,
+            "heat": self.val_heat,
+            "battery": self.val_battery,
+        }
+        metrics = []
+        for k, v in src.items():
+            metrics.append({
+                'name': 'custom.envsensor.%s.%s' % (k, env_name),
+                'value': v,
+                'time': now,
+            })
+        client.post_service_metrics(service_name, metrics)
+
     def upload_influxdb(self, client_influxdb):
         # direct data upload to influxDB
         json_body = [
