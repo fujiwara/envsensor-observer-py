@@ -154,7 +154,7 @@ def handling_data(sensor):
     if conf.NAFUDA_OUTPUT:
         show_nafuda(sensor.txt_format())
     if conf.MACKEREL_OUTPUT:
-        sensor.post_mackerel(mackerel_client, conf.MACKEREL_SERVICE, conf.MACKEREL_KEY_PREFIX)
+        sensor.post_mackerel(mackerel_client, conf.MACKEREL_SERVICE, conf.MACKEREL_ENV)
 
 def show_nafuda(txt):
     nafuda = Nafuda()

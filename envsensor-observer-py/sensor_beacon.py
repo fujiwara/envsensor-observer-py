@@ -248,7 +248,7 @@ class SensorBeacon:
             'distance': self.distance
         })
 
-    def post_mackerel(self, client, service_name, key_prefix):
+    def post_mackerel(self, client, service_name, env_name):
         now = int(self.tick_last_update.strftime('%s'))
         src = {
             "temperature": self.val_temp,
@@ -264,7 +264,7 @@ class SensorBeacon:
         metrics = []
         for k, v in src.items():
             metrics.append({
-                'name': key_prefix + k,
+                'name': 'custom.envsensor.%s.%s' % (k, env_name),
                 'value': v,
                 'time': now,
             })
