@@ -38,6 +38,8 @@ if conf.INFLUXDB_OUTPUT:
 if conf.NAFUDA_OUTPUT:
     sys.path.append('/home/pi/electronic_badge_2018/lib')
     from nafuda import Nafuda
+if conf.MACKEREL_OUTPUT:
+    from mackerel.client import MackerelClient
 
 # constant
 VER = 1.2
@@ -49,6 +51,7 @@ GATEWAY = socket.gethostname()
 influx_client = None
 sensor_list = []
 flag_update_sensor_status = False
+mackerel_client = None
 
 
 def parse_events(sock, loop_count=10):
@@ -150,6 +153,8 @@ def handling_data(sensor):
         log.info(sensor.csv_format())
     if conf.NAFUDA_OUTPUT:
         show_nafuda(sensor.txt_format())
+    if conf.MACKEREL_OUTPUT:
+        sensor.post_mackerel(mackerel_client, conf.MACKEREL_SERVICE)
 
 def show_nafuda(txt):
     nafuda = Nafuda()
@@ -326,6 +331,20 @@ if __name__ == "__main__":
             print "error initializing csv output interface"
             print str(e)
             sys.exit(1)
+
+        # initialize mackerel client
+        try:
+            if conf.MACKEREL_OUTPUT:
+                if debug:
+                    print "-- initialize mackerel_client"
+                mackerel_client = MackerelClient(mackerel_api_key=conf.MACKEREL_APIKEY)
+                if debug:
+                    print "-- initialize mackerel_client : success"
+        except Exception as e:
+            print "error initializing mackerel_client"
+            print str(e)
+            sys.exit(1)
+
 
         # initialize bluetooth socket
         try:

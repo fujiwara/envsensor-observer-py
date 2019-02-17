@@ -48,3 +48,9 @@ INFLUXDB_PASSWORD = "root"  # enter influxDB user password
 NAFUDA_OUTPUT = True
 NAFUDA_FONT_PATH = '/usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf'
 NAFUDA_FONT_SIZE = 24
+
+# Mackerel
+MACKEREL_OUTPUT = True
+MACKERER_APIKEY = os.environ['MACKEREL_APIKEY']
+MACKEREL_SERVICE = 'Home'
+MACKEREL_KEY_PREFIX = 'custom.envsonsor.myroom.'
